@@ -1,16 +1,18 @@
 package main
 
 import (
+	"chess/bot"
+	"chess/domain"
+	"chess/domain/pieces"
 	"fmt"
 	"log"
-
-	"chess/domain"
 )
 
 func main() {
 	log.SetFlags(0)
 
 	board := domain.InitBoard()
+	bot := bot.Bot{Board: &board, Color: pieces.Black}
 
 	fmt.Println(board.ToString())
 
@@ -24,13 +26,20 @@ func main() {
 		}
 
 		piece := board.GetPieceAt(originalPos)
-		if piece == nil || !board.IsMoveAllowed(piece, originalPos, destPos) {
+		move := domain.Move{From: originalPos, To: destPos, Piece: piece}
+
+		if piece == nil || !board.IsMoveAllowed(move) {
 			fmt.Println("Invalid move try again")
 			continue
 		}
 
-		board.MovePiece(piece, originalPos, destPos)
+		board.MovePiece(move)
 
+		fmt.Print(board.ToString())
+
+		// Make the bot move
+		fmt.Println("Bot is thinking...")
+		bot.MakeMove()
 		fmt.Print(board.ToString())
 	}
 

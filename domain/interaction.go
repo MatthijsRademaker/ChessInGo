@@ -4,10 +4,16 @@ import (
 	"chess/domain/pieces"
 )
 
+type Move struct {
+	From  pieces.Position
+	To    pieces.Position
+	Piece pieces.ChessPiece
+}
+
 // arrays are indexed [row][column] therefore the first index is the Y coordinate and the second index is the X coordinate
-func (b *Board) MovePiece(piece pieces.ChessPiece, from, to pieces.Position) {
-	b.State[to.Y][to.X] = piece
-	b.State[from.Y][from.X] = nil
+func (b *Board) MovePiece(move Move) {
+	b.State[move.To.Y][move.To.X] = move.Piece
+	b.State[move.From.Y][move.From.X] = nil
 }
 
 func (b *Board) GetPieceAt(position pieces.Position) pieces.ChessPiece {
@@ -23,10 +29,10 @@ func (b *Board) GetState() [8][8]pieces.ChessPiece {
 	return b.State
 }
 
-func (b *Board) IsMoveAllowed(piece pieces.ChessPiece, from, to pieces.Position) bool {
-	allowedMoves := b.GetAllowedMoves(piece, from)
+func (b *Board) IsMoveAllowed(moveToMake Move) bool {
+	allowedMoves := b.GetAllowedMoves(moveToMake.Piece, moveToMake.From)
 	for _, move := range allowedMoves {
-		if move == to {
+		if move == moveToMake.To {
 			return true
 		}
 	}
