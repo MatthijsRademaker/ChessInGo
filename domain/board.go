@@ -2,8 +2,9 @@ package domain
 
 import (
 	"bytes"
+	"fmt"
 
-	"chess.domain/pieces"
+	"chess/domain/pieces"
 )
 
 type Board struct {
@@ -26,13 +27,15 @@ func InitBoard() Board {
 
 	return board
 }
-
 func (b *Board) ToString() string {
 	var buffer bytes.Buffer
-	buffer.WriteString("+---------------------------+\n")
-	buffer.WriteString("   1  2  3  4  5  6  7  8\n")
+	buffer.WriteString("+-----------------------------+\n")
+	buffer.WriteString("     A  B  C  D  E  F  G  H\n")
 	for x := 0; x < 8; x++ {
 		buffer.WriteString("  ")
+
+		buffer.WriteString(fmt.Sprintf("%d ", x+1))
+
 		for y := 0; y < 8; y++ {
 			piece := b.State[x][y]
 			if piece == nil {
@@ -43,7 +46,7 @@ func (b *Board) ToString() string {
 		}
 		buffer.WriteString("\n")
 	}
-	buffer.WriteString("   1  2  3  4  5  6  7  8\n")
-	buffer.WriteString("+---------------------------+\n")
+	buffer.WriteString("     A  B  C  D  E  F  G  H\n")
+	buffer.WriteString("+-----------------------------+\n")
 	return buffer.String()
 }

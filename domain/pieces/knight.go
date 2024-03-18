@@ -24,7 +24,7 @@ func (p Knight) GetPossibleMoves(position Position) []Position {
 
 	// Generate all possible moves from the current position
 	for _, move := range possibleMoves {
-		newX, newY := move[0], move[1]
+		newX, newY := position.X+move[0], position.Y+move[1]
 		// Check if the new position is within the bounds of the chessboard (assuming an 8x8 board)
 		if !IsOutOfBounds(newX, newY) {
 			moves = append(moves, Position{newX, newY})

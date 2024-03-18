@@ -31,12 +31,12 @@ func (p Pawn) GetPossibleMoves(position Position) []Position {
 	}
 
 	// TODO: implement logic for en passant and Diagonal attack moves, should be in the boardstate? Or separate function?
-	diagonalMoves := []Position{{position.X - 1, position.Y + direction}, {position.X + 1, position.Y + direction}}
-	for _, diagonalMove := range diagonalMoves {
-		if !IsOutOfBounds(diagonalMove.X, diagonalMove.Y) {
-			moves = append(moves, diagonalMove)
-		}
-	}
+	// diagonalMoves := []Position{{position.X - 1, position.Y + direction}, {position.X + 1, position.Y + direction}}
+	// for _, diagonalMove := range diagonalMoves {
+	// 	if !IsOutOfBounds(diagonalMove.X, diagonalMove.Y) {
+	// 		moves = append(moves, diagonalMove)
+	// 	}
+	// }
 
 	return moves
 }

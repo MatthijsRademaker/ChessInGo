@@ -5,8 +5,6 @@ import (
 	"log"
 
 	"chess/domain"
-
-	"chess.domain/pieces"
 )
 
 func main() {
@@ -16,25 +14,25 @@ func main() {
 
 	fmt.Println(board.ToString())
 
-	currentPos := pieces.Position{0, 0}
-
 	for !board.IsFinished() {
 
-		piece := board.GetPieceAt(currentPos)
-		// Reminder this is bot behavior and should be removed
-		moves := board.GetAllowedMoves(piece, currentPos)
-		if len(moves) == 0 {
-			fmt.Println("No moves left")
-			break
+		// Read a move from the user
+		originalPos, destPos, err := ReadMove()
+		if err != nil {
+			fmt.Println("Error:", err)
+			continue
 		}
-		nextPos := moves[0]
-		board.MovePiece(piece, currentPos, nextPos)
+
+		piece := board.GetPieceAt(originalPos)
+		if piece == nil || !board.IsMoveAllowed(piece, originalPos, destPos) {
+			fmt.Println("Invalid move try again")
+			continue
+		}
+
+		board.MovePiece(piece, originalPos, destPos)
 
 		fmt.Print(board.ToString())
-
-		currentPos = nextPos
 	}
 
 	fmt.Println("Congratulations! You won!")
-
 }

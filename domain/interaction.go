@@ -1,7 +1,7 @@
 package domain
 
 import (
-	"chess.domain/pieces"
+	"chess/domain/pieces"
 )
 
 // arrays are indexed [row][column] therefore the first index is the Y coordinate and the second index is the X coordinate
@@ -21,6 +21,16 @@ func (b *Board) IsFinished() bool {
 
 func (b *Board) GetState() [8][8]pieces.ChessPiece {
 	return b.State
+}
+
+func (b *Board) IsMoveAllowed(piece pieces.ChessPiece, from, to pieces.Position) bool {
+	allowedMoves := b.GetAllowedMoves(piece, from)
+	for _, move := range allowedMoves {
+		if move == to {
+			return true
+		}
+	}
+	return false
 }
 
 func (b *Board) GetAllowedMoves(piece pieces.ChessPiece, from pieces.Position) []pieces.Position {

@@ -5,17 +5,10 @@ import (
 )
 
 func (p *Rook) TestPossibleMoves(t *testing.T) {
-	type args struct {
-		position Position
-	}
-	tests := []struct {
-		name string
-		args args
-		want []Position
-	}{
+	tests := []TestingScenario{
 		{
 			name: "Test 1",
-			args: args{
+			args: TestingArgs{
 				position: Position{
 					X: 0,
 					Y: 0,
@@ -40,7 +33,7 @@ func (p *Rook) TestPossibleMoves(t *testing.T) {
 		},
 		{
 			name: "Test 2",
-			args: args{
+			args: TestingArgs{
 				position: Position{
 					X: 3,
 					Y: 3,
@@ -65,29 +58,14 @@ func (p *Rook) TestPossibleMoves(t *testing.T) {
 		},
 	}
 
-	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
+	for _, scenario := range tests {
+		t.Run(scenario.name, func(t *testing.T) {
 			rook := Rook{White}
-			got := rook.GetPossibleMoves(tt.args.position)
+			got := rook.GetPossibleMoves(scenario.args.position)
 
 			// Check if each element in tt.want is contained in got
-			for _, wantMove := range tt.want {
-				found := false
-				for _, move := range got {
-					if move == wantMove {
-						found = true
-						break
-					}
-				}
-				if !found {
-					t.Errorf("Rook.GetPossibleMoves() = %v, does not contain %v", got, wantMove)
-				}
-			}
 
-			// Check if the length of got matches the length of tt.want
-			if len(got) != len(tt.want) {
-				t.Errorf("Rook.GetPossibleMoves() = %v, want %v", got, tt.want)
-			}
+			AssertEqualPositions(t, scenario, got)
 		})
 	}
 }
