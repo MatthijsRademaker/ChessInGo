@@ -10,32 +10,32 @@ func TestKnightPossibleMoves(t *testing.T) {
 			name: "Test 1",
 			args: TestingArgs{
 				position: Position{
-					X: 0,
-					Y: 0,
+					File: A,
+					Rank: 1,
 				},
 			},
 			want: []Position{
-				{X: 1, Y: 2},
-				{X: 2, Y: 1},
+				{File: B, Rank: 3},
+				{File: C, Rank: 2},
 			},
 		},
 		{
 			name: "Test 2",
 			args: TestingArgs{
 				position: Position{
-					X: 4,
-					Y: 4,
+					File: D,
+					Rank: 5,
 				},
 			},
 			want: []Position{
-				{X: 2, Y: 3},
-				{X: 2, Y: 5},
-				{X: 3, Y: 2},
-				{X: 3, Y: 6},
-				{X: 5, Y: 2},
-				{X: 5, Y: 6},
-				{X: 6, Y: 3},
-				{X: 6, Y: 5},
+				{File: B, Rank: 4},
+				{File: B, Rank: 6},
+				{File: C, Rank: 3},
+				{File: C, Rank: 7},
+				{File: E, Rank: 3},
+				{File: E, Rank: 7},
+				{File: F, Rank: 4},
+				{File: F, Rank: 6},
 			},
 		},
 	}

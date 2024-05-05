@@ -31,9 +31,10 @@ func (bot *Bot) getBestMove() MoveWithPoints {
 		for y := 0; y < 8; y++ {
 			piece := currentState[y][x]
 			if piece != nil && piece.GetColor() == bot.Color {
-				allowedMoves := bot.Board.GetAllowedMoves(piece, pieces.Position{X: x, Y: y})
+				fromMove := pieces.ConvertToFileRank(x, y)
+				allowedMoves := bot.Board.GetAllowedMoves(piece, fromMove)
 				for _, move := range allowedMoves {
-					movesWithPointsSlice = append(movesWithPointsSlice, MoveWithPoints{Piece: piece, From: pieces.Position{X: x, Y: y}, To: move, Score: pointsMap[move]})
+					movesWithPointsSlice = append(movesWithPointsSlice, MoveWithPoints{Piece: piece, From: fromMove, To: move, Score: pointsMap[move]})
 				}
 			}
 		}

@@ -18,10 +18,11 @@ func (p King) GetPossibleMoves(position Position) []Position {
 
 	// Generate all possible moves from the current position
 	for _, move := range possibleMoves {
-		newX, newY := position.X+move[0], position.Y+move[1]
+		x, y := ConvertToGridPosition(position)
+		newX, newY := x+move[0], y+move[1]
 		// Check if the new position is within the bounds of the chessboard (assuming an 8x8 board)
 		if !IsOutOfBounds(newX, newY) {
-			moves = append(moves, Position{newX, newY})
+			moves = append(moves, ConvertToFileRank(newX, newY))
 		}
 	}
 

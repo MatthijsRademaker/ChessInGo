@@ -12,12 +12,17 @@ type Move struct {
 
 // arrays are indexed [row][column] therefore the first index is the Y coordinate and the second index is the X coordinate
 func (b *Board) MovePiece(move Move) {
-	b.State[move.To.Y][move.To.X] = move.Piece
-	b.State[move.From.Y][move.From.X] = nil
+	moveToAsGridX, movesToAsGridY := pieces.ConvertToGridPosition(move.To)
+	b.State[movesToAsGridY][moveToAsGridX] = move.Piece
+
+	moveFromAsGridX, moveFromAsGridY := pieces.ConvertToGridPosition(move.From)
+	b.State[moveFromAsGridY][moveFromAsGridX] = nil
 }
 
 func (b *Board) GetPieceAt(position pieces.Position) pieces.ChessPiece {
-	return b.State[position.Y][position.X]
+	x, y := pieces.ConvertToGridPosition(position)
+	piece := b.State[y][x]
+	return piece
 }
 
 func (b *Board) IsFinished() bool {
@@ -43,6 +48,9 @@ func (b *Board) GetAllowedMoves(piece pieces.ChessPiece, from pieces.Position) [
 	allowedMoves := make([]pieces.Position, 0)
 	possibleMoves := piece.GetPossibleMoves(from)
 	for _, move := range possibleMoves {
+		if move.IsOutOfBounds() {
+			continue
+		}
 		pieceAtMove := b.GetPieceAt(move)
 		if pieceAtMove == nil || pieceAtMove.GetColor() != piece.GetColor() {
 			allowedMoves = append(allowedMoves, move)

@@ -10,25 +10,25 @@ func TestWhitePawnPossibleMoves(t *testing.T) {
 			name: "Test 1",
 			args: TestingArgs{
 				position: Position{
-					X: 0,
-					Y: 1,
+					File: A,
+					Rank: 1,
 				},
 			},
 			want: []Position{
-				{X: 0, Y: 2},
-				{X: 0, Y: 3},
+				{File: A, Rank: 2},
+				{File: A, Rank: 3},
 			},
 		},
 		{
 			name: "Test 2",
 			args: TestingArgs{
 				position: Position{
-					X: 4,
-					Y: 4,
+					File: D,
+					Rank: 4,
 				},
 			},
 			want: []Position{
-				{X: 4, Y: 5},
+				{File: D, Rank: 5},
 			},
 		},
 	}
@@ -50,25 +50,25 @@ func TestBlackPawnPossibleMoves(t *testing.T) {
 			name: "Test 1",
 			args: TestingArgs{
 				position: Position{
-					X: 6,
-					Y: 6,
+					File: F,
+					Rank: 6,
 				},
 			},
 			want: []Position{
-				{X: 6, Y: 5},
-				{X: 6, Y: 4},
+				{File: F, Rank: 5},
+				{File: F, Rank: 4},
 			},
 		},
 		{
 			name: "Test 2",
 			args: TestingArgs{
 				position: Position{
-					X: 4,
-					Y: 4,
+					File: E,
+					Rank: 4,
 				},
 			},
 			want: []Position{
-				{X: 4, Y: 3},
+				{File: E, Rank: 3},
 			},
 		},
 	}

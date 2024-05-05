@@ -4,6 +4,7 @@ import (
 	"bufio"
 	"chess/domain/pieces"
 	"fmt"
+	"log"
 	"os"
 	"strconv"
 	"strings"
@@ -55,13 +56,15 @@ func parsePosition(posStr string) (pieces.Position, error) {
 		return pieces.Position{}, fmt.Errorf("invalid position format: %s", posStr)
 	}
 	// Convert y from 1-based to 0-based indexing
-	y--
 
 	// Validate coordinates
 	if x < 0 || x > 7 || y < 0 || y > 7 {
 		return pieces.Position{}, fmt.Errorf("invalid position: coordinates out of range")
 	}
 
+	move := pieces.ConvertToFileRank(x, y)
+
+	log.Printf("Parsed position: %s -> %v\n", posStr, move)
 	// adjust x and y to match the board's 0-based indexing
-	return pieces.Position{x, y}, nil
+	return move, nil
 }

@@ -12,3 +12,7 @@ const (
 	QueenType
 	KingType
 )
+
+func (p PieceType) String() string {
+	return [...]string{"Pawn", "Knight", "Bishop", "Rook", "Queen", "King"}[p]
+}

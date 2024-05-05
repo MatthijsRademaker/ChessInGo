@@ -20,12 +20,13 @@ func (p Queen) GetPossibleMoves(position Position) []Position {
 	// Generate possible moves for each direction
 	for _, dir := range directions {
 		for i := 1; i < 8; i++ {
+			x, y := ConvertToGridPosition(position)
 			// Max distance queen can move on an 8x8 board
-			newX, newY := position.X+i*dir[0], position.Y+i*dir[1]
+			newX, newY := x+i*dir[0], y+i*dir[1]
 			// Check if the new position is within the bounds of the chessboard
 			if !IsOutOfBounds(newX, newY) {
 				// Add the new position to the list of possible moves
-				moves = append(moves, Position{newX, newY})
+				moves = append(moves, ConvertToFileRank(newX, newY))
 			}
 		}
 	}

@@ -30,13 +30,14 @@ func generatePointsMap() map[pieces.Position]int {
 	for x := 0; x < BoardSize; x++ {
 		for y := 0; y < BoardSize; y++ {
 			distance := math.Sqrt(float64((x-centerX)*(x-centerX) + (y-centerY)*(y-centerY)))
+			move := pieces.ConvertToFileRank(x, y)
 			switch {
 			case x == 0 || x == BoardSize-1 || y == 0 || y == BoardSize-1:
-				pointsMap[pieces.Position{X: x, Y: y}] = CornerWeight
+				pointsMap[move] = CornerWeight
 			case x == 1 || x == BoardSize-2 || y == 1 || y == BoardSize-2:
-				pointsMap[pieces.Position{X: x, Y: y}] = EdgeWeight
+				pointsMap[move] = EdgeWeight
 			default:
-				pointsMap[pieces.Position{X: x, Y: y}] = CenterWeight - int(distance)
+				pointsMap[move] = CenterWeight - int(distance)
 			}
 		}
 	}

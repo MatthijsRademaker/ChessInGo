@@ -27,6 +27,7 @@ func InitBoard() Board {
 
 	return board
 }
+
 func (b *Board) ToString() string {
 	var buffer bytes.Buffer
 	buffer.WriteString("+-----------------------------+\n")

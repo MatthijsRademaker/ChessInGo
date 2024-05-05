@@ -23,11 +23,11 @@ func (p Pawn) GetPossibleMoves(position Position) []Position {
 	}
 
 	// Generate possible moves for a single step forward
-	moves = append(moves, Position{position.X, position.Y + direction})
+	moves = append(moves, Position{position.File, position.Rank + direction})
 
 	// If the pawn is at its starting position, it can move two squares forward
-	if (position.Y == 1 && p.Color == White) || (position.Y == 6 && p.Color == Black) {
-		moves = append(moves, Position{position.X, position.Y + 2*direction})
+	if (position.Rank == 1 && p.Color == White) || (position.Rank == 6 && p.Color == Black) {
+		moves = append(moves, Position{position.File, position.Rank + 2*direction})
 	}
 
 	// TODO: implement logic for en passant and Diagonal attack moves, should be in the boardstate? Or separate function?
